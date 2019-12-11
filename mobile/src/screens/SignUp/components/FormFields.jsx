@@ -2,13 +2,14 @@ import React from 'react';
 import { View } from 'react-native';
 import { withStyles, CheckBox } from '@ui-kitten/components';
 
-import { textStyle, ValidationInput } from 'components/common';
+import textStyle from 'textStyle';
+import { ValidationInput } from 'components/ValidationInput';
 import { EmailIconFill, EyeOffIconFill, PersonIconFill } from 'assets/icons';
 import {
   EmailValidator,
   NameValidator,
   PasswordValidator,
-} from 'core/validators';
+} from 'utils/validators';
 
 class SignUpForm2Component extends React.Component {
   constructor() {
@@ -108,7 +109,7 @@ class SignUpForm2Component extends React.Component {
     );
   }
 }
-export const SignUpForm2 = withStyles(SignUpForm2Component, theme => ({
+export default withStyles(SignUpForm2Component, theme => ({
   container: {},
   forgotPasswordContainer: {
     flexDirection: 'row',

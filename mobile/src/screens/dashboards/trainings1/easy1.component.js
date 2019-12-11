@@ -1,9 +1,10 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { withStyles, List, Text } from '@ui-kitten/components';
+
+import textStyle from 'textStyle';
 import { TrainingCard1 } from 'components/trainings/trainingCard.component';
 
-import { textStyle } from 'components/common';
 
 class Easy1Component extends React.Component {
   constructor() {

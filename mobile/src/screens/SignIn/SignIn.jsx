@@ -28,7 +28,7 @@ function SignIn({ themedStyle, ...props }) {
         </View>
         <FormFields
           style={themedStyle.formContainer}
-          onForgotPasswordPress={props.onForgotPasswordButtonPress}
+          onForgotPasswordPress={props.onForgotPasswordPress}
           onDataChange={setFormData}
         />
         <Button
@@ -36,7 +36,7 @@ function SignIn({ themedStyle, ...props }) {
           textStyle={textStyle.button}
           size="giant"
           disabled={!formData}
-          onPress={() => props.onSignInButtonPress(formData)}
+          onPress={() => props.onSignInPress(formData)}
         >
           SIGN IN
         </Button>
@@ -45,7 +45,7 @@ function SignIn({ themedStyle, ...props }) {
           textStyle={themedStyle.signUpText}
           appearance="ghost"
           activeOpacity={0.75}
-          onPress={props.onSignUpButtonPress}
+          onPress={props.onSignUpPress}
         >
           Don't have an account? Sign Up
         </Button>
@@ -55,9 +55,9 @@ function SignIn({ themedStyle, ...props }) {
 }
 
 SignIn.propTypes = {
-  onForgotPasswordButtonPress: PropTypes.func.isRequired,
-  onSignInButtonPress: PropTypes.func.isRequired,
-  onSignUpButtonPress: PropTypes.func.isRequired,
+  onForgotPasswordPress: PropTypes.func.isRequired,
+  onSignInPress: PropTypes.func.isRequired,
+  onSignUpPress: PropTypes.func.isRequired,
   themedStyle: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
@@ -66,13 +66,13 @@ export default withStyles(SignIn, theme => ({
     flex: 1,
   },
   headerContainer: {
-    minHeight: 216,
+    minHeight: 300,
     justifyContent: 'center',
     alignItems: 'center',
   },
   formContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingHorizontal: 16,
   },
   helloLabel: { color: 'white', ...textStyle.headline },
@@ -87,5 +87,5 @@ export default withStyles(SignIn, theme => ({
   signUpButton: {
     marginVertical: 12,
   },
-  signUpText: { color: 'white', ...textStyle.subtitle },
+  signUpText: { marginBottom: 20, color: 'white', ...textStyle.subtitle },
 }));

@@ -1,8 +1,8 @@
 import { fork, all } from 'redux-saga/effects';
 
-import ideasSaga from 'store/ideas/sagas';
+import postSaga from 'store/post/sagas';
 
-const defaultSagas = [ideasSaga];
+const defaultSagas = [postSaga];
 
 export default function* rootSaga() {
   yield all(defaultSagas.map(s => fork(s)));

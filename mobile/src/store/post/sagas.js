@@ -1,48 +1,40 @@
 import {
   call, put, fork,
 } from 'redux-saga/effects';
-
 import {
   repeat,
 } from 'ramda';
 
+import apiService from 'services/api/apiService';
 import { watchActionsLatest } from 'utils/sagas/watchActions';
 
 import {
-  actions as ideasActions,
-  constants as ideasConstants,
+  postActions,
+  postConstants,
 } from './ducks';
 
+const mockPosts = repeat({
+  title: 'Post 1',
+  desc: 'Best post Ever',
+}, 100).map((post, i) => ({ ...post, id: i }));
 
-const mockIdeas = repeat({
-  title: 'Idea One',
-  desc: 'Best Idea Ever',
-}, 100).map((idea, i) => ({ ...idea, id: i }));
 
-
-function* requestIdeasList() {
-  yield put(ideasActions.receiveIdeas({
-    ideas: mockIdeas,
+function* requestPostsList() {
+  yield put(postActions.receivePosts({
+    posts: mockPosts,
   }));
-  // yield api.get('ideas', function* onR(response) {
-  //   yield put(ideasActions.receiveIdeas({
-  //     ideas: response.ideas || mockIdeas,
-  //   }));
-  // });
 }
 
-function* createIdea({ payload: { idea } }) {
-  yield api.mock('posts', function* onR(response) {
-    yield put(ideasActions.receiveIdeas({
-      ideas: response.ideas || mockIdeas,
-    }));
+function* createPost({ payload: { post } }) {
+  yield apiService.mock('posts', function* onR() {
+    yield put(postActions.createPost({ post }));
   });
 }
 
-export default function* ideasSaga() {
-  yield call(requestIdeasList);
+export default function* postsSaga() {
+  yield call(requestPostsList);
   yield fork(watchActionsLatest, [
-    [ideasConstants.REQUEST_NEXT_IDEAS, requestIdeasList],
-    [ideasConstants.CREATE_IDEA, createIdea],
+    [postConstants.REQUEST_NEXT_POSTS, requestPostsList],
+    [postConstants.CREATE_POST, createPost],
   ]);
 }

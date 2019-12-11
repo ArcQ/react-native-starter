@@ -4,8 +4,8 @@ import * as Font from 'expo-font';
 
 import { images, fonts } from './index';
 
-export function getImageUri(k) {
-  return Asset.fromModule(images[k]).uri;
+export function getImage(k) {
+  return Asset.fromModule(images[k]);
 }
 
 export function getSvg(k) {

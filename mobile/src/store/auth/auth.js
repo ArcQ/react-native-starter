@@ -52,7 +52,7 @@ export const logout = apiService.post('login', function* onSuccess(response) {
 
 export function* register(action) {
   const { profile } = action.payload;
-  yield api.mock('signup', function* onSuccess (response) {
+  yield apiService.mock('signup', function* onSuccess (response) {
     yield successfulLogin(response.data);
   }, {
     profile,

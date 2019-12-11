@@ -2,27 +2,27 @@ import { fromJS } from 'immutable';
 import { createConstantsAndActions } from 'utils/reduxHelpers';
 import { normalizeAndUpdate } from 'utils/schema';
 
-export const postNamespace = 'ideas';
+export const postNamespace = 'posts';
 
-const constArr = ['RECEIVE_IDEAS', 'REQUEST_NEXT_IDEAS', 'CREATE_IDEA'];
+const constArr = ['RECEIVE_POSTS', 'REQUEST_NEXT_POSTS', 'CREATE_POST'];
 
-const IDEAS_LIST_K = 'post';
+const POSTS_LIST_K = 'post';
 
-export const { constants, actions } = createConstantsAndActions(
-  postNamespace,
-  constArr,
-);
+export const {
+  constants: postConstants,
+  actions: postActions,
+} = createConstantsAndActions(postNamespace, constArr);
 
-export const selectors = {
-  ideasList: state => state.getIn([postNamespace, 'ideasList']),
-  ideasEntities: state => state.getIn([postNamespace, 'ideasEntities']),
+export const postSelectors = {
+  postsList: state => state.getIn([postNamespace, 'postsList']),
+  postsEntities: state => state.getIn([postNamespace, 'postsEntities']),
 };
 
 const REQ_LIMIT = 20;
 
 const initialState = fromJS({
-  ideasList: undefined,
-  ideasEntities: {},
+  postsList: undefined,
+  postsEntities: {},
   params: {
     limit: REQ_LIMIT,
     cursor: 'initial',
@@ -33,19 +33,19 @@ const initialState = fromJS({
   hasInit: false,
 });
 
-const c = constants;
+const c = postConstants;
 
-export default function ideasReducer(state = initialState, action) {
+export default function postsReducer(state = initialState, action) {
   switch (action.type) {
-    case c.RECEIVE_IDEAS: {
-      return (normalizeAndUpdate(state, 'ideas')(action.payload.ideas))
-        .setIn([IDEAS_LIST_K, 'cursor'], action.payload.cursor)
-        .updateIn([IDEAS_LIST_K, 'timesLoaded'], timesLoaded => timesLoaded + 1)
-        .setIn([IDEAS_LIST_K, 'count'], action.payload.count)
-        .setIn(
-          [IDEAS_LIST_K, 'lastPage'],
-          !!action.payload.cursor,
-        );
+    case c.RECEIVE_POSTS: {
+      return normalizeAndUpdate(
+        state,
+        'posts',
+      )(action.payload.posts)
+        .setIn([POSTS_LIST_K, 'cursor'], action.payload.cursor)
+        .updateIn([POSTS_LIST_K, 'timesLoaded'], timesLoaded => timesLoaded + 1)
+        .setIn([POSTS_LIST_K, 'count'], action.payload.count)
+        .setIn([POSTS_LIST_K, 'lastPage'], !!action.payload.cursor);
     }
     default:
       return state;

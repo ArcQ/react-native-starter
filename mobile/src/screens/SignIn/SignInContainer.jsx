@@ -1,32 +1,24 @@
 import React from 'react';
 
-import { getImageUri } from 'assets/manager';
+import { getImage } from 'assets/manager';
 import customProptypes from 'utils/customProptypes';
 
 import SignIn from './SignIn';
 
-const NAVIGATION_KEY = 'Sign In';
-
 export default function SignInContainer(props) {
   const _props = {
-    backgroundImage: getImageUri('signInBg'),
+    backgroundImage: getImage('signInBg'),
   };
 
   const methods = {
     onSignInPress(data) {
-      props.navigation.goBack();
+      props.navigation.navigate('Home');
     },
     onSignUpPress() {
-      props.navigation.navigate({
-        key: NAVIGATION_KEY,
-        routeName: 'Sign Up',
-      });
+      props.navigation.navigate('SignUp');
     },
     onForgotPasswordPress() {
-      props.navigation.navigate({
-        key: NAVIGATION_KEY,
-        routeName: 'Forgot Password',
-      });
+      props.navigation.navigate('ForgotPassword');
     },
   };
 

@@ -1,8 +1,11 @@
-import createHelpers from 'utils/reduxHelpers';
+import {
+  createConstantsAndActions,
+  createSelectorsAndState,
+} from 'utils/reduxHelpers';
+
 import { fromJS } from 'immutable';
 
 export const authNamespace = 'auth';
-const { createConstantsAndActions } = createHelpers(namespace);
 
 const constArr = [
   'LOGIN',
@@ -19,30 +22,28 @@ const constArr = [
  * Constants and Actions
  */
 
-export const { authConstants, authActions } = createConstantsAndActions(
-  constArr,
-);
+export const {
+  constants: authConstants,
+  actions: authActions,
+} = createConstantsAndActions(authNamespace, constArr);
 
-/**
- * Selectors
- */
-
-export const selectors = {
-  myProfile: state => state.getIn([authNamespace, 'profile']),
-  loggedIn: state => state.getIn([authNamespace, 'loggedIn']),
-};
-
-/**
- * Reducer
- */
-
-// The initial application state
-const initialState = fromJS({
+const { initialState, selectors } = createSelectorsAndState(authNamespace, {
   hasCheckedSession: false,
   loggedIn: false,
   profile: {},
 });
 
+/**
+ * Selectors
+ */
+
+export const authSelectors = {
+  ...selectors,
+};
+
+/**
+ * Reducer
+ */
 const c = authConstants;
 
 // Takes care of changing the application state

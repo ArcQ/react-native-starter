@@ -1,13 +1,9 @@
 /* eslint-disable */
 export const images = {
   splash: require('./images/splash.png'),
-  robotDev: require('./images/robot-dev.png'),
-  robotProd: require('./images/robot-prod.png'),
   signInBg: require('./images/image-background-auth-3.jpg'),
-  signUpBg: require('./images/image-background-auth-4.jpg')
-  // export const imageForgotPasswordBg = {
-  //   imageimages: require('./source/image-background-forgot-password.jpg'),
-  // };
+  signUpBg: require('./images/image-background-auth-4.jpg'),
+  forgotPasswordBg: require('./images/image-background-forgot-password.jpg'),
   // export const remoteImage = new RemoteImage('https://images.unsplash.com/photo-1527030280862-64139fba04ca');
   // export const imageFeed1 = {
   //   imageimages: require('./source/image-feed-plant-1.jpg'),
@@ -57,7 +53,7 @@ export const images = {
   // export const imageSignUp2Layout = {
   //   imageimages: require('./source/image-layout-sign-up-2.jpg'),
   // };
-  // export const imageSignUp3Layout = {
+  // export const imageSignUpLayout = {
   //   imageimages: require('./source/image-layout-sign-up-3.jpg'),
   // };
   // export const imageSignUp4Layout = {

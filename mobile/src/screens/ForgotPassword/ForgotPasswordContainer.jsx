@@ -1,5 +1,5 @@
 import React from 'react';
-import { ForgotPassword } from './forgotPassword.component';
+import ForgotPassword from './ForgotPassword';
 
 export class ForgotPasswordContainer extends React.Component {
   constructor() {

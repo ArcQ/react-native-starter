@@ -8,10 +8,10 @@ export const alertNamespace = 'alerts';
 
 const constArr = ['TOGGLE_SUCCESS_TOAST', 'TOGGLE_ERROR_TOAST'];
 
-export const { alertConstants, alertsActions } = createConstantsAndActions(
-  alertNamespace,
-  constArr,
-);
+export const {
+  constants: alertConstants,
+  actions: alertsActions,
+} = createConstantsAndActions(alertNamespace, constArr);
 
 const { initialState, selectors: asels } = createSelectorsAndState(
   alertNamespace,

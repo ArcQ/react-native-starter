@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable';
 import {
   createConstantsAndActions,
   createSelectorsAndState,
@@ -8,10 +7,10 @@ export const errorNamespace = 'error';
 
 const constArr = ['HANDLE_ERROR'];
 
-export const { errorConstants, errorActions } = createConstantsAndActions(
-  errorNamespace,
-  constArr,
-);
+export const {
+  constants: errorConstants,
+  actions: errorActions,
+} = createConstantsAndActions(errorNamespace, constArr);
 
 const { initialState, selectors } = createSelectorsAndState(errorNamespace, {
   toast: {},

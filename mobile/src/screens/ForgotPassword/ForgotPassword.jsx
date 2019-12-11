@@ -1,9 +1,12 @@
 import React from 'react';
 import { withStyles, Button, Text } from '@ui-kitten/components';
 
-import { ForgotPasswordForm } from 'components/auth';
-import { ScrollableAvoidKeyboard, ImageOverlay, textStyle } from 'components/common';
-import { imageForgotPasswordBg } from 'assets/images';
+import textStyle from 'textStyle';
+import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
+import ImageOverlay from 'components/ImageOverlay';
+import { getImage } from 'assets/manager';
+
+import FormFields from './components/FormFields';
 
 class ForgotPasswordComponent extends React.Component {
   constructor() {
@@ -11,8 +14,7 @@ class ForgotPasswordComponent extends React.Component {
     this.state = {
       formData: undefined,
     };
-    this.backgroundImage = imageForgotPasswordBg;
-    this.onFormDataChange = (formData) => {
+    this.onFormDataChange = formData => {
       this.setState({ formData });
     };
     this.onResetPasswordButtonPress = () => {
@@ -22,23 +24,41 @@ class ForgotPasswordComponent extends React.Component {
 
   render() {
     const { themedStyle } = this.props;
-    return (<ScrollableAvoidKeyboard>
-      <ImageOverlay style={themedStyle.container} source={this.backgroundImage.imageSource}>
-        <Text style={themedStyle.forgotPasswordLabel} appearance="alternative" category="h4">
+    return (
+      <ScrollableAvoidKeyboard>
+        <ImageOverlay
+          style={themedStyle.container}
+          source={getImage('forgotPasswordBg')}
+        >
+          <Text
+            style={themedStyle.forgotPasswordLabel}
+            appearance="alternative"
+            category="h4"
+          >
             Forgot Password
-        </Text>
-        <Text style={themedStyle.enterEmailLabel} appearance="alternative">
+          </Text>
+          <Text style={themedStyle.enterEmailLabel} appearance="alternative">
             Please enter your email address
-        </Text>
-        <ForgotPasswordForm style={themedStyle.formContainer} onDataChange={this.onFormDataChange} />
-        <Button style={themedStyle.resetButton} textStyle={textStyle.button} size="giant" disabled={!this.state.formData} onPress={this.onResetPasswordButtonPress}>
+          </Text>
+          <FormFields
+            style={themedStyle.formContainer}
+            onDataChange={this.onFormDataChange}
+          />
+          <Button
+            style={themedStyle.resetButton}
+            textStyle={textStyle.button}
+            size="giant"
+            disabled={!this.state.formData}
+            onPress={this.onResetPasswordButtonPress}
+          >
             RESET PASSWORD
-        </Button>
-      </ImageOverlay>
-    </ScrollableAvoidKeyboard>);
+          </Button>
+        </ImageOverlay>
+      </ScrollableAvoidKeyboard>
+    );
   }
 }
-export const ForgotPassword = withStyles(ForgotPasswordComponent, (theme) => ({
+export default withStyles(ForgotPasswordComponent, theme => ({
   container: {
     flex: 1,
     paddingHorizontal: 16,
@@ -50,10 +70,16 @@ export const ForgotPassword = withStyles(ForgotPasswordComponent, (theme) => ({
     marginTop: 24,
   },
   forgotPasswordLabel: {
-    alignSelf: 'center', marginTop: 24, color: 'white', ...textStyle.headline,
+    alignSelf: 'center',
+    marginTop: 50,
+    color: 'white',
+    ...textStyle.headline,
   },
   enterEmailLabel: {
-    alignSelf: 'center', marginTop: 64, color: 'white', ...textStyle.subtitle,
+    alignSelf: 'center',
+    marginTop: 64,
+    color: 'white',
+    ...textStyle.subtitle,
   },
   resetButton: {},
 }));

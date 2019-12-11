@@ -1,8 +1,20 @@
+import { Button } from '@ui-kitten/components';
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 
-export default function SettingsScreen() {
-  return <ExpoConfigView />;
+import textStyle from 'textStyle';
+
+export default function SettingsScreen(props) {
+  return <>
+    <Button
+      textStyle={textStyle.button}
+      size="medium"
+      onPress={() => props.navigation.navigate('SignIn')}
+    >
+      Sign Out
+    </Button>
+    <ExpoConfigView />
+  </>;
 }
 
 SettingsScreen.navigationOptions = {

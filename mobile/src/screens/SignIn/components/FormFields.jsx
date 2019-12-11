@@ -1,6 +1,7 @@
+import { Button, withStyles } from '@ui-kitten/components';
+import { props } from 'ramda';
 import React from 'react';
 import { View } from 'react-native';
-import { withStyles } from '@ui-kitten/components';
 
 import { EmailValidator, PasswordValidator } from 'utils/validators';
 import textStyle from 'textStyle';
@@ -63,6 +64,15 @@ class FormFields extends React.Component {
           validator={PasswordValidator}
           onChangeText={this.onPasswordInputTextChange}
         />
+        <Button
+          style={themedStyle.forgotPasswordButton}
+          textStyle={themedStyle.forgotPasswordText}
+          appearance="ghost"
+          activeOpacity={0.75}
+          onPress={this.props.onForgotPasswordPress}
+        >
+          Forgot Password
+        </Button>
       </View>
     );
   }
@@ -77,4 +87,8 @@ export default withStyles(FormFields, theme => ({
     marginTop: 16,
     backgroundColor: 'rgba(0, 0, 0, 0.35)',
   },
+  forgotPasswordButton: {
+    marginVertical: 12,
+  },
+  forgotPasswordText: { marginBottom: 20, color: 'white', ...textStyle.subtitle },
 }));

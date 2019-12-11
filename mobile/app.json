@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "IdeaLab",
+    "name": "react-native-starter",
     "slug": "mobile",
     "privacy": "public",
     "sdkVersion": "35.0.0",

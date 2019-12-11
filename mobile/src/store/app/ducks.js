@@ -12,16 +12,13 @@ export const { constants, actions } = createConstantsAndActions(
   constArr,
 );
 
-const { initialState, selectors: baseSelectors } = createSelectorsAndState(
-  appNamespace,
-  {
-    appLoaded: false,
-    loadingActions: [],
-  },
-);
+const { initialState, selectors } = createSelectorsAndState(appNamespace, {
+  appLoaded: false,
+  loadingActions: [],
+});
 
-export const selectors = {
-  ...baseSelectors,
+export const appSelectors = {
+  ...selectors,
   showProgress: state => state.getIn([appNamespace, 'loadingActions']).size > 0,
 };
 
