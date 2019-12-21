@@ -1,15 +1,99 @@
+import { Input } from '@ui-kitten/components';
+
 import React from 'react';
 import { View } from 'react-native';
 import { withStyles, CheckBox } from '@ui-kitten/components';
+import useForm from 'react-hook-form'
 
 import textStyle from 'textStyle';
 import { ValidationInput } from 'components/ValidationInput';
 import { EmailIconFill, EyeOffIconFill, PersonIconFill } from 'assets/icons';
-import {
+import validate, {
   EmailValidator,
   NameValidator,
   PasswordValidator,
 } from 'utils/validators';
+
+
+
+function SignUpFormFields() {
+  const { style, themedStyle, ...restProps } = this.props;
+
+  const { register, setValue, handleSubmit, errors } = useForm()
+
+  useEffect(
+
+  const oldFormValid = validate(prevState);
+  const newFormValid = validate(this.state);
+  const isStateChanged = this.state !== prevState;
+  const becomeValid = !oldFormValid && newFormValid;
+  const becomeInvalid = oldFormValid && !newFormValid;
+  const remainValid = oldFormValid && newFormValid;
+  if (becomeValid) {
+    this.props.onDataChange(this.state);
+  } else if (becomeInvalid) {
+    this.props.onDataChange(undefined);
+  } else if (isStateChanged && remainValid) {
+    this.props.onDataChange(this.state);
+  }
+
+  );
+  return (
+    <View style={[themedStyle.container, style]} {...restProps}>
+      <View style={themedStyle.formContainer}>
+        <BasicInput
+          ref={register({ name: 'userName'}, { required: true })}
+          onChangeText={text => setValue('userName', text, true)}
+          placeholder="User Name"
+          icon={PersonIconFill}
+          validator={NameValidator}
+          style={themedStyle.usernameInput}
+        />
+        <ValidationInput
+          style={themedStyle.usernameInput}
+          textStyle={textStyle.paragraph}
+          placeholder="User Name"
+          icon={PersonIconFill}
+          onChangeText={setUsername}
+        />
+        <ValidationInput
+          style={themedStyle.emailInput}
+          textStyle={textStyle.paragraph}
+          placeholder="Email"
+          icon={EmailIconFill}
+          validator={EmailValidator}
+          onChangeText={setEmail}
+        />
+        <ValidationInput
+          style={themedStyle.passwordInput}
+          textStyle={textStyle.paragraph}
+          secureTextEntry
+          placeholder="Password"
+          icon={EyeOffIconFill}
+          validator={PasswordValidator}
+          onChangeText={setPassword}
+        />
+        <CheckBox
+          style={themedStyle.termsCheckBox}
+          textStyle={themedStyle.termsCheckBoxText}
+          checked={this.state.termsAccepted}
+          onChange={setTermsAccepted}
+          text="I read and agree to Terms & Conditions"
+        />
+      </View>
+      <Button
+        style={themedStyle.signUpButton}
+        textStyle={textStyle.button}
+        size="giant"
+        disabled={!formData}
+        onPress={() => props.onSignUpButtonPress(formData)}
+      >
+        SIGN UP
+      </Button>
+    </View>
+  );
+
+}
 
 class SignUpForm2Component extends React.Component {
   constructor() {
@@ -32,83 +116,18 @@ class SignUpForm2Component extends React.Component {
     this.onPasswordInputValidationResult = password => {
       this.setState({ password });
     };
-    this.isValid = value => {
-      const {
-        username, password, email, termsAccepted,
-      } = value;
-      return (
-        username !== undefined
-        && password !== undefined
-        && email !== undefined
-        && termsAccepted
-      );
-    };
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.props.onDataChange) {
-      return;
-    }
-    const oldFormValid = this.isValid(prevState);
-    const newFormValid = this.isValid(this.state);
-    const isStateChanged = this.state !== prevState;
-    const becomeValid = !oldFormValid && newFormValid;
-    const becomeInvalid = oldFormValid && !newFormValid;
-    const remainValid = oldFormValid && newFormValid;
-    if (becomeValid) {
-      this.props.onDataChange(this.state);
-    } else if (becomeInvalid) {
-      this.props.onDataChange(undefined);
-    } else if (isStateChanged && remainValid) {
-      this.props.onDataChange(this.state);
-    }
+
   }
 
   render() {
-    const { style, themedStyle, ...restProps } = this.props;
-    return (
-      <View style={[themedStyle.container, style]} {...restProps}>
-        <View style={themedStyle.formContainer}>
-          <ValidationInput
-            style={themedStyle.usernameInput}
-            textStyle={textStyle.paragraph}
-            autoCapitalize="none"
-            placeholder="User Name"
-            icon={PersonIconFill}
-            validator={NameValidator}
-            onChangeText={this.onUsernameInputTextChange}
-          />
-          <ValidationInput
-            style={themedStyle.emailInput}
-            textStyle={textStyle.paragraph}
-            autoCapitalize="none"
-            placeholder="Email"
-            icon={EmailIconFill}
-            validator={EmailValidator}
-            onChangeText={this.onEmailInputTextChange}
-          />
-          <ValidationInput
-            style={themedStyle.passwordInput}
-            textStyle={textStyle.paragraph}
-            autoCapitalize="none"
-            secureTextEntry
-            placeholder="Password"
-            icon={EyeOffIconFill}
-            validator={PasswordValidator}
-            onChangeText={this.onPasswordInputValidationResult}
-          />
-          <CheckBox
-            style={themedStyle.termsCheckBox}
-            textStyle={themedStyle.termsCheckBoxText}
-            checked={this.state.termsAccepted}
-            onChange={this.onTermsValueChange}
-            text="I read and agree to Terms & Conditions"
-          />
-        </View>
-      </View>
-    );
+
   }
 }
+
+
 export default withStyles(SignUpForm2Component, theme => ({
   container: {},
   forgotPasswordContainer: {

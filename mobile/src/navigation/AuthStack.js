@@ -1,5 +1,10 @@
 import { createStackNavigator } from 'react-navigation-stack';
 
+import {
+  FORGOT_PASSWORD_ROUTE,
+  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
+} from 'navigation/routes';
 import SignInContainer from 'screens/SignIn/SignInContainer';
 import SignUpContainer from 'screens/SignUp/SignUpContainer';
 import {
@@ -8,19 +13,19 @@ import {
 
 const AuthStack = createStackNavigator(
   {
-    SignIn: {
+    [SIGN_IN_ROUTE]: {
       screen: SignInContainer,
       navigationOptions: {
         header: null,
       },
     },
-    SignUp: {
+    [SIGN_UP_ROUTE]: {
       screen: SignUpContainer,
       navigationOptions: {
         header: null,
       },
     },
-    ForgotPassword: {
+    [FORGOT_PASSWORD_ROUTE]: {
       screen: ForgotPasswordContainer,
       navigationOptions: {
         header: null,
@@ -28,7 +33,7 @@ const AuthStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: SIGN_IN_ROUTE,
   },
 );
 

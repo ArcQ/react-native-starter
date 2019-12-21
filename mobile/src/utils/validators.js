@@ -1,3 +1,5 @@
+import { all } from 'ramda';
+
 export const PATTERN_NAME = /[a-z ,.'-]+/;
 export const PATTERN_DOB = /\d{1,2}\/\d{1,2}\/\d{4}/;
 export const PATTERN_EMAIL = /\S+@\S+\.\S+/;
@@ -8,6 +10,7 @@ export const PATTERN_CARD_NUMBER = /\d{4} \d{4} \d{4} \d{4}/;
 export const PATTERN_CARD_EXPIRE_DATE = /\d{2}\/\d{2}/;
 export const PATTERN_CARD_CVV = /\d{3}/;
 export const PATTERN_FULLNAME = /^$|^[a-zA-ZčČćĆđĐšŠžŽ-]+ [a-zA-ZčČćĆđĐšŠžŽ-]+$/;
+
 export const NameValidator = (value) => {
     return RegExpValidator(PATTERN_NAME, value);
 };
@@ -44,3 +47,5 @@ export const StringValidator = (value) => {
 const RegExpValidator = (regexp, value) => {
     return regexp.test(value);
 };
+
+export default formKv => all((v) => v !== undefined)(Object.values(formKv));

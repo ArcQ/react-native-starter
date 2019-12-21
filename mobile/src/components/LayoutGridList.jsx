@@ -7,6 +7,7 @@ import { LayoutGridListItem } from 'components/LayoutGridListItem';
 const { width } = Dimensions.get('window');
 
 const itemWidth = width / 2 - 32;
+
 class LayoutGridListComponent extends React.Component {
     constructor() {
         super(...arguments);

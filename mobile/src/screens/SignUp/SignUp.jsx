@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles, Button } from '@ui-kitten/components';
 
-import { ProfilePhoto } from 'components/ProfilePhoto';
 import textStyle from 'textStyle';
+import customProptypes from 'utils/customProptypes';
+import { ProfilePhoto } from 'components/ProfilePhoto';
 import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
 import ImageOverlay from 'components/ImageOverlay';
 import { getImage } from 'assets/manager';
@@ -11,79 +13,66 @@ import { PlusIconFill } from 'assets/icons';
 
 import FormFields from './components/FormFields';
 
-export class SignUpComponent extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.profileImage = {};
-    this.state = {
-      formData: undefined,
-    };
-    this.onFormDataChange = formData => {
-      this.setState({ formData });
-    };
-    this.onPhotoButtonPress = () => {
-      this.props.onPhotoPress();
-    };
-    this.onSignInButtonPress = () => {
-      this.props.onSignInPress();
-    };
-    this.onSignUpButtonPress = () => {
-      this.props.onSignUpPress(this.state.formData);
-    };
-    this.renderPhotoButtonIcon = style => {
-      const { themedStyle } = this.props;
-      return PlusIconFill({ ...style, ...themedStyle.photoButtonIcon });
-    };
-    this.renderPhotoButton = () => {
-      const { themedStyle } = this.props;
-      return (
-        <Button
-          style={themedStyle.photoButton}
-          icon={this.renderPhotoButtonIcon}
-          onPress={this.onPhotoButtonPress}
-        />
-      );
-    };
-  }
-
-  render() {
-    const { themedStyle } = this.props;
-    return (
-      <ScrollableAvoidKeyboard>
-        <ImageOverlay
-          style={themedStyle.container}
-          source={getImage('signUpBg')}
-        >
-          <View style={themedStyle.headerContainer}>
-            <ProfilePhoto style={themedStyle.photo} resizeMode="center" source={this.profileImage.imageSource} button={this.renderPhotoButton} />
-          </View>
-          <FormFields
-            style={themedStyle.formContainer}
-            onDataChange={this.onFormDataChange}
-          />
-          <Button
-            style={themedStyle.signUpButton}
-            textStyle={textStyle.button}
-            size="giant"
-            disabled={!this.state.formData}
-            onPress={this.onSignUpButtonPress}
-          >
-            SIGN UP
-          </Button>
-          <Button
-            style={themedStyle.signInButton}
-            textStyle={themedStyle.signUpText}
-            appearance="ghost"
-            activeOpacity={0.75}
-            onPress={this.onSignInButtonPress}
-          >
-            Already have an account? Sign In
-          </Button>
-        </ImageOverlay>
-      </ScrollableAvoidKeyboard>
-    );
-  }
+function PhotoButton(props) {
+  const { themedStyle } = props;
+  return (
+    <Button
+      style={themedStyle.photoButton}
+      icon={style => PlusIconFill({ ...style, ...themedStyle.photoButtonIcon })}
+      onPress={() => {
+        props.onPhotoPress();
+      }}
+    />
+  );
 }
+
+PhotoButton.propTypes = {
+  onPhotoPress: PropTypes.func,
+  themedStyle: customProptypes.themedStyle,
+};
+
+function SignUpComponent(props) {
+  const [formData, setFormData] = useState({});
+  const { themedStyle } = props;
+
+  return (
+    <ScrollableAvoidKeyboard>
+      <ImageOverlay style={themedStyle.container} source={getImage('signUpBg')}>
+        <View style={themedStyle.headerContainer}>
+          <ProfilePhoto
+            style={themedStyle.photo}
+            resizeMode="center"
+            source={this.profileImage.imageSource}
+            button={() => <PhotoButton
+              onPhotoPress={props.onPhotoPress}
+              themedStyle={props.themedStyle}
+            />}
+          />
+        </View>
+        <FormFields
+          style={themedStyle.formContainer}
+          onDataChange={setFormData}
+        />
+        <Button
+          style={themedStyle.signInButton}
+          textStyle={themedStyle.signUpText}
+          appearance="ghost"
+          activeOpacity={0.75}
+          onPress={props.onSignInPress}
+        >
+          Already have an account? Sign In
+        </Button>
+      </ImageOverlay>
+    </ScrollableAvoidKeyboard>
+  );
+}
+
+SignUpComponent.propTypes = {
+  onPhotoPress: PropTypes.func.isRequired,
+  onSignInPress: PropTypes.func.isRequired,
+  onSignUpButtonPress: PropTypes.func.isRequired,
+  themedStyle: PropTypes.object.isRequired,
+};
 
 export default withStyles(SignUpComponent, theme => ({
   container: {
