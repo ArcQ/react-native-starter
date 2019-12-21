@@ -3,7 +3,7 @@
     "name": "react-native-starter",
     "slug": "react-native-starter",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -32,7 +32,14 @@
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "svt", "ts", "tsx", "svg"]
+      "sourceExts": [
+        "js",
+        "jsx",
+        "svt",
+        "ts",
+        "tsx",
+        "svg"
+      ]
     }
   }
 }
