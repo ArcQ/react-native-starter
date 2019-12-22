@@ -1,6 +1,6 @@
 import { put, fork, take } from 'redux-saga/effects';
 
-import { alertsActions } from 'store/alerts/ducks';
+import { alertsActions } from 'store/alert/ducks';
 
 import { authConstants, authActions } from 'store/auth/ducks';
 

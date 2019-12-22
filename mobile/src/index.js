@@ -1,10 +1,8 @@
 import { registerRootComponent } from 'expo';
-import { activateKeepAwake } from 'expo-keep-awake';
 
+import envService from 'services/env/envService';
 import App from 'app/app';
 
-if (__DEV__) { // eslint-disable-line
-  activateKeepAwake();
-}
+envService.init();
 
 registerRootComponent(App);

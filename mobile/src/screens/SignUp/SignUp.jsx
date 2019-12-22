@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { withStyles, Button } from '@ui-kitten/components';
 
 import textStyle from 'textStyle';
-import customProptypes from 'utils/customProptypes';
+import customPropTypes from 'utils/customPropTypes';
 import { ProfilePhoto } from 'components/ProfilePhoto';
 import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
 import ImageOverlay from 'components/ImageOverlay';
 import { getImage } from 'assets/manager';
 import { PlusIconFill } from 'assets/icons';
 
-import FormFields from './components/FormFields';
+import SignupFormFields from './components/SignupFormFields';
 
 function PhotoButton(props) {
   const { themedStyle } = props;
@@ -28,11 +28,10 @@ function PhotoButton(props) {
 
 PhotoButton.propTypes = {
   onPhotoPress: PropTypes.func,
-  themedStyle: customProptypes.themedStyle,
+  themedStyle: customPropTypes.themedStyle,
 };
 
 function SignUpComponent(props) {
-  const [formData, setFormData] = useState({});
   const { themedStyle } = props;
 
   return (
@@ -42,19 +41,18 @@ function SignUpComponent(props) {
           <ProfilePhoto
             style={themedStyle.photo}
             resizeMode="center"
-            source={this.profileImage.imageSource}
             button={() => <PhotoButton
               onPhotoPress={props.onPhotoPress}
               themedStyle={props.themedStyle}
             />}
           />
         </View>
-        <FormFields
+        <SignupFormFields
           style={themedStyle.formContainer}
-          onDataChange={setFormData}
+          onSignUpButtonPress={props.onSignUpButtonPress}
         />
         <Button
-          style={themedStyle.signInButton}
+          style={themedStyle.signUpButton}
           textStyle={themedStyle.signUpText}
           appearance="ghost"
           activeOpacity={0.75}
@@ -71,7 +69,7 @@ SignUpComponent.propTypes = {
   onPhotoPress: PropTypes.func.isRequired,
   onSignInPress: PropTypes.func.isRequired,
   onSignUpButtonPress: PropTypes.func.isRequired,
-  themedStyle: PropTypes.object.isRequired,
+  themedStyle: customPropTypes.style,
 };
 
 export default withStyles(SignUpComponent, theme => ({

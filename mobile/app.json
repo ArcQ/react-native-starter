@@ -24,11 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.knotfive.ideasapp",
+      "bundleIdentifier": "com.rn.starter",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.knotfive.ideasapp"
+      "package": "com.rn.starter"
     },
     "packagerOpts": {
       "config": "metro.config.js",

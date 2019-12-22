@@ -1,9 +1,9 @@
 import { withStyles } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  KeyboardAwareScrollView,
-} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import customPropTypes from 'utils/customPropTypes';
 
 function ScrollableAvoidKeyboard({
   style,
@@ -29,19 +29,16 @@ function ScrollableAvoidKeyboard({
 }
 
 ScrollableAvoidKeyboard.propTypes = {
-  contentContainerStyle: PropTypes.objectOf(PropTypes.String),
-  style: PropTypes.objectOf(PropTypes.String),
-  themedStyle: PropTypes.objectOf(PropTypes.String),
+  contentContainerStyle: customPropTypes.style,
+  style: customPropTypes.style,
+  themedStyle: customPropTypes.style,
 };
 
-export default withStyles(
-  ScrollableAvoidKeyboard,
-  theme => ({
-    container: {
-      flex: 1,
-    },
-    contentContainer: {
-      flexGrow: 1,
-    },
-  }),
-);
+export default withStyles(ScrollableAvoidKeyboard, theme => ({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+  },
+}));

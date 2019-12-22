@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import { withStyles, Button, Text } from '@ui-kitten/components';
 
+import customProptypes from 'utils/customPropTypes';
 import textStyle from 'textStyle';
 import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
 import ImageOverlay from 'components/ImageOverlay';
@@ -58,7 +59,7 @@ SignIn.propTypes = {
   onForgotPasswordPress: PropTypes.func.isRequired,
   onSignInPress: PropTypes.func.isRequired,
   onSignUpPress: PropTypes.func.isRequired,
-  themedStyle: PropTypes.objectOf(PropTypes.string).isRequired,
+  themedStyle: customProptypes.style,
 };
 
 export default withStyles(SignIn, theme => ({

@@ -11,12 +11,9 @@ const updateState = (state, prefix = '') => normalized =>
     .update(`${prefix}Entities`, entities =>
       (entities || new ImmutableMap()).merge(
         fromJS(normalized.entities.dbObject),
-      ),
-    )
-    .update(`${prefix}List`, list =>
+      )).update(`${prefix}List`, list =>
       // react native cannot map immutable lists out of box
-      (list || []).concat(normalized.result),
-    );
+      (list || []).concat(normalized.result));
 
 export const normalizeAndUpdate = (state, prefix) =>
   pipe(normalizeBase, updateState(state, prefix));

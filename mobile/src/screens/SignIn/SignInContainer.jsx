@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getImage } from 'assets/manager';
-import customProptypes from 'utils/customProptypes';
+import customPropTypes from 'utils/customPropTypes';
 
 import SignIn from './SignIn';
 
@@ -26,5 +26,5 @@ export default function SignInContainer(props) {
 }
 
 SignInContainer.propTypes = {
-  navigation: customProptypes.navigation,
+  navigation: customPropTypes.navigation,
 };

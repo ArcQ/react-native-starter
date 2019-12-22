@@ -1,5 +1,4 @@
 /* @module */
-import { call /* put */ } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 // import { actions as errorActions } from 'shared/store/error/ducks';

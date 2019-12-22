@@ -33,7 +33,7 @@ const AuthStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: SIGN_IN_ROUTE,
+    initialRouteName: SIGN_UP_ROUTE,
   },
 );
 

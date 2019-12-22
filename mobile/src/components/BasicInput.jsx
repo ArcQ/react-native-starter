@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types'
-import { Input, Text, withStyles } from '@ui-kitten/components';
+import { Input, withStyles } from '@ui-kitten/components';
+import PropTypes from 'prop-types';
 import React from 'react';
 
+import CustomPropTypes from 'utils/customPropTypes';
 import textStyle from 'textStyle';
+
+import BasicInputError from './BasicInputError';
 
 function BasicInput(props) {
   const { style, themedStyle, ...restProps } = props;
@@ -16,18 +19,19 @@ function BasicInput(props) {
         onChangeText={props.onChangeText}
         {...restProps}
       />
-      {props.errors.firstName && <Text>temp placeholder</Text>}
+      <BasicInputError error={props.errors[props.name]} />
     </>
   );
 }
 
 BasicInput.propTypes = {
-  errors: PropTypes.object,
+  errors: CustomPropTypes.errors,
   onChangeText: PropTypes.func,
-  style: PropTypes.object,
-  themedStyle: PropTypes.object,
+  style: CustomPropTypes.style,
+  themedStyle: CustomPropTypes.style,
+  name: PropTypes.string,
 };
 
-export default withStyles(BasicInput, theme => ({
+export default withStyles(BasicInput, () => ({
   container: {},
 }));

@@ -1,12 +1,17 @@
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React from 'react';
 
+import { authActions } from 'store/auth/ducks';
+import customPropTypes from 'utils/customPropTypes';
 import { HOME_ROUTE, SIGN_IN_ROUTE } from 'navigation/routes';
 
 import SignUp from './SignUp';
 
-export default function SignUpContainer(props) {
+function SignUpContainer(props) {
   const methods = {
     onSignUpPress(data) {
+      props.register(data);
       props.navigation.navigate(HOME_ROUTE);
     },
     onSignInPress() {
@@ -16,7 +21,24 @@ export default function SignUpContainer(props) {
 
   return (
     <SignUp
-      {...{..._props, ...methods}}
+      {...{ ...props, ...methods }}
     />
   );
 }
+
+SignUpContainer.propTypes = {
+  navigation: customPropTypes.navigation,
+  register: PropTypes.func,
+};
+
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = {
+  register: authActions.signUp,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SignUpContainer);
