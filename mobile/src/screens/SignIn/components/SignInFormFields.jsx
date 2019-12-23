@@ -6,7 +6,6 @@ import useForm from 'react-hook-form';
 
 import CustomPropTypes from 'utils/customPropTypes';
 import intlService from 'services/intl/intlService';
-import FormFields from 'screens/ForgotPassword/components/FormFields';
 import BasicInput from 'components/BasicInput';
 import textStyle from 'textStyle';
 
@@ -71,7 +70,7 @@ SignInFormFields.propTypes = {
   style: CustomPropTypes.style,
 };
 
-export default withStyles(FormFields, theme => ({
+export default withStyles(SignInFormFields, theme => ({
   container: {},
   emailInput: {
     backgroundColor: 'rgba(0, 0, 0, 0.35)',

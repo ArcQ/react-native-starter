@@ -15,6 +15,12 @@ const signIn = {
   forgotPasswordButton: 'Forgot Password',
 };
 
+const forgotPassword = {
+  forgotPasswordLabel: 'Forgot Password',
+  resetPasswordButton: 'RESET PASSWORD',
+  enterEmailLabel: 'Please enter your email address',
+};
+
 const errors = {
   'field-required': 'This field is required',
   'field-pattern': 'The format of this field was unexpected',
@@ -29,4 +35,5 @@ export default {
   signIn,
   signUp,
   errors,
+  forgotPassword,
 };

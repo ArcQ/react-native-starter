@@ -10,6 +10,7 @@ export const authNamespace = 'auth';
 const constArr = [
   'LOGIN',
   'REGISTER',
+  'RESET_PASSWORD',
   'LOGOUT',
   'SET_PROFILE',
   'CHECK_SESSION',
