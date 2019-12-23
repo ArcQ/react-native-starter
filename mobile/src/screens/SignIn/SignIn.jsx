@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { withStyles, Button, Text } from '@ui-kitten/components';
 
+import intlService from 'services/intl/intlService';
 import customProptypes from 'utils/customPropTypes';
 import textStyle from 'textStyle';
 import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
 import ImageOverlay from 'components/ImageOverlay';
 import { images } from 'assets';
 
-import FormFields from './components/FormFields';
+import SignInFormFields from './components/SignInFormFields';
+
+const trans = intlService.translate('signIn');
 
 function SignIn({ themedStyle, ...props }) {
-  const [formData, setFormData] = useState({});
   return (
     <ScrollableAvoidKeyboard>
       <ImageOverlay
@@ -21,26 +23,18 @@ function SignIn({ themedStyle, ...props }) {
       >
         <View style={themedStyle.headerContainer}>
           <Text style={themedStyle.helloLabel} category="h1">
-            Hello
+            {trans('helloLabel')}
           </Text>
           <Text style={themedStyle.signInLabel} category="s1">
-            Sign in to your account
+            {trans('signInLabel')}
           </Text>
         </View>
-        <FormFields
+        <SignInFormFields
           style={themedStyle.formContainer}
+          onSignInPress={props.onSignInPress}
+          onSignUpPress={props.onSignUpPress}
           onForgotPasswordPress={props.onForgotPasswordPress}
-          onDataChange={setFormData}
         />
-        <Button
-          style={themedStyle.signInButton}
-          textStyle={textStyle.button}
-          size="giant"
-          disabled={!formData}
-          onPress={() => props.onSignInPress(formData)}
-        >
-          SIGN IN
-        </Button>
         <Button
           style={themedStyle.signUpButton}
           textStyle={themedStyle.signUpText}
@@ -48,7 +42,7 @@ function SignIn({ themedStyle, ...props }) {
           activeOpacity={0.75}
           onPress={props.onSignUpPress}
         >
-          Don't have an account? Sign Up
+          {trans('signUpButton')}
         </Button>
       </ImageOverlay>
     </ScrollableAvoidKeyboard>

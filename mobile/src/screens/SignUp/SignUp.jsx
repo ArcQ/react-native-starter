@@ -11,7 +11,7 @@ import ImageOverlay from 'components/ImageOverlay';
 import { getImage } from 'assets/manager';
 import { PlusIconFill } from 'assets/icons';
 
-import SignupFormFields from './components/SignupFormFields';
+import SignUpFormFields from './components/SignUpFormFields';
 
 function PhotoButton(props) {
   const { themedStyle } = props;
@@ -49,7 +49,7 @@ function SignUpComponent(props) {
             )}
           />
         </View>
-        <SignupFormFields
+        <SignUpFormFields
           style={themedStyle.formContainer}
           onSignUpPress={props.onSignUpPress}
         />

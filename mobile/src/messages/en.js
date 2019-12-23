@@ -1,10 +1,18 @@
-const signup = {
+const signUp = {
   termsConditions: 'I read and agree to Terms & Conditions',
   signUp: 'SIGN UP',
   usernamePlaceholder: 'Username',
   emailPlaceholder: 'Email',
   passwordPlaceholder: 'Password',
   signInMessage: 'Already have an account? Sign In',
+};
+
+const signIn = {
+  helloLabel: 'Hello',
+  signInButton: 'SIGN IN',
+  signInLabel: 'Sign in to your account',
+  signUpButton: "Don't have an account? Sign Up",
+  forgotPasswordButton: 'Forgot Password',
 };
 
 const errors = {
@@ -18,6 +26,7 @@ const errors = {
 };
 
 export default {
-  signup,
+  signIn,
+  signUp,
   errors,
 };

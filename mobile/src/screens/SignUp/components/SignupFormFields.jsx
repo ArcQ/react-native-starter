@@ -16,15 +16,14 @@ const EMAIL = 'email';
 const PASSWORD = 'password';
 const TERMS_CHECKBOX = 'termsCheckBox';
 
-const trans = intlService.translate('signup');
+const trans = intlService.translate('signUp');
 
 function SignUpFormFields(props) {
   const { themedStyle, style, ...restProps } = props;
 
   const [termsChecked, setTermsChecked] = useState(false);
+  const { register, setValue, handleSubmit, errors } = useForm();
 
-  const { register, setValue, handleSubmit, formState, errors, getValues } = useForm();
-  console.log(formState);
   return (
     <View style={[themedStyle.container, style]} {...restProps}>
       <View style={themedStyle.formContainer}>
@@ -32,7 +31,10 @@ function SignUpFormFields(props) {
           placeholder={trans('usernamePlaceholder')}
           icon={PersonIconFill}
           style={themedStyle.usernameInput}
-          inputRef={register({ name: USERNAME }, { required: true, maxLength: 30, minLength: 3 })}
+          inputRef={register(
+            { name: USERNAME },
+            { required: true, maxLength: 30, minLength: 3 },
+          )}
           onChangeText={text => setValue(USERNAME, text, true)}
           error={errors?.[USERNAME]}
         />
@@ -40,7 +42,10 @@ function SignUpFormFields(props) {
           placeholder={trans('emailPlaceholder')}
           icon={EmailIconFill}
           style={themedStyle.emailInput}
-          inputRef={register({ name: EMAIL }, { required: true, pattern: PATTERN_EMAIL })}
+          inputRef={register(
+            { name: EMAIL },
+            { required: true, pattern: PATTERN_EMAIL },
+          )}
           onChangeText={text => setValue(EMAIL, text, true)}
           error={errors?.[EMAIL]}
         />
@@ -48,7 +53,10 @@ function SignUpFormFields(props) {
           placeholder={trans('passwordPlaceholder')}
           icon={EyeOffIconFill}
           style={themedStyle.passwordInput}
-          inputRef={register({ name: PASSWORD }, { required: true, minLength: 8 })}
+          inputRef={register(
+            { name: PASSWORD },
+            { required: true, minLength: 8 },
+          )}
           onChangeText={text => setValue(PASSWORD, text, true)}
           error={errors?.[PASSWORD]}
           secureTextEntry
