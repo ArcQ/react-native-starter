@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import { Button, CheckBox, withStyles } from '@ui-kitten/components';
-import { props } from 'ramda';
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import useForm from 'react-hook-form';
 
@@ -20,10 +20,11 @@ const trans = intlService.translate('signup');
 
 function SignUpFormFields(props) {
   const { themedStyle, style, ...restProps } = props;
-  console.log('themed', themedStyle);
 
-  const { register, setValue, handleSubmit, formState, errors } = useForm();
+  const [termsChecked, setTermsChecked] = useState(false);
 
+  const { register, setValue, handleSubmit, formState, errors, getValues } = useForm();
+  console.log(formState);
   return (
     <View style={[themedStyle.container, style]} {...restProps}>
       <View style={themedStyle.formContainer}>
@@ -31,45 +32,41 @@ function SignUpFormFields(props) {
           placeholder={trans('usernamePlaceholder')}
           icon={PersonIconFill}
           style={themedStyle.usernameInput}
-          name={USERNAME}
-          ref={register({ required: true, max: 30, min: 3 })}
+          inputRef={register({ name: USERNAME }, { required: true, maxLength: 30, minLength: 3 })}
           onChangeText={text => setValue(USERNAME, text, true)}
-          errors={errors}
+          error={errors?.[USERNAME]}
         />
         <BasicInput
           placeholder={trans('emailPlaceholder')}
           icon={EmailIconFill}
           style={themedStyle.emailInput}
-          name={EMAIL}
-          ref={register({ required: true, pattern: PATTERN_EMAIL })}
+          inputRef={register({ name: EMAIL }, { required: true, pattern: PATTERN_EMAIL })}
           onChangeText={text => setValue(EMAIL, text, true)}
-          errors={errors}
+          error={errors?.[EMAIL]}
         />
         <BasicInput
-          ref={register({ name: PASSWORD }, { required: true, min: 8 })}
-          onChangeText={text => setValue(PASSWORD, text, true)}
           placeholder={trans('passwordPlaceholder')}
           icon={EyeOffIconFill}
           style={themedStyle.passwordInput}
-          errors={errors}
+          inputRef={register({ name: PASSWORD }, { required: true, minLength: 8 })}
+          onChangeText={text => setValue(PASSWORD, text, true)}
+          error={errors?.[PASSWORD]}
           secureTextEntry
         />
         <CheckBox
           style={themedStyle.termsCheckBox}
           textStyle={themedStyle.termsCheckBoxText}
           text={trans('termsConditions')}
-          name={TERMS_CHECKBOX}
-          checked={register({ required: true })}
-          onChange={value => setValue(TERMS_CHECKBOX, value, true)}
-          errors={errors}
+          checked={termsChecked}
+          onChange={() => setTermsChecked(!termsChecked)}
+          error={errors?.[TERMS_CHECKBOX]}
         />
       </View>
       <Button
         style={themedStyle.signUpButton}
         textStyle={textStyle.button}
         size="giant"
-        disabled={!formState.isValid}
-        onPress={handleSubmit(props.onSignUpButtonPress)}
+        onPress={handleSubmit(props.onSignUpPress)}
       >
         {trans('signUp')}
       </Button>
@@ -80,7 +77,7 @@ function SignUpFormFields(props) {
 SignUpFormFields.propTypes = {
   themedStyle: customPropTypes.style,
   style: customPropTypes.style,
-  onSignUpButtonPress: customPropTypes.func,
+  onSignUpPress: PropTypes.func,
 };
 
 export default withStyles(SignUpFormFields, theme => ({

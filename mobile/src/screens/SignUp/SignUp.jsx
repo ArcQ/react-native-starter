@@ -5,7 +5,7 @@ import { withStyles, Button } from '@ui-kitten/components';
 
 import textStyle from 'textStyle';
 import customPropTypes from 'utils/customPropTypes';
-import { ProfilePhoto } from 'components/ProfilePhoto';
+import ProfilePhoto from 'components/ProfilePhoto';
 import ScrollableAvoidKeyboard from 'components/ScrollableAvoidKeyboard';
 import ImageOverlay from 'components/ImageOverlay';
 import { getImage } from 'assets/manager';
@@ -28,7 +28,7 @@ function PhotoButton(props) {
 
 PhotoButton.propTypes = {
   onPhotoPress: PropTypes.func,
-  themedStyle: customPropTypes.themedStyle,
+  themedStyle: customPropTypes.style,
 };
 
 function SignUpComponent(props) {
@@ -41,15 +41,17 @@ function SignUpComponent(props) {
           <ProfilePhoto
             style={themedStyle.photo}
             resizeMode="center"
-            button={() => <PhotoButton
-              onPhotoPress={props.onPhotoPress}
-              themedStyle={props.themedStyle}
-            />}
+            button={() => (
+              <PhotoButton
+                onPhotoPress={props.onPhotoPress}
+                themedStyle={props.themedStyle}
+              />
+            )}
           />
         </View>
         <SignupFormFields
           style={themedStyle.formContainer}
-          onSignUpButtonPress={props.onSignUpButtonPress}
+          onSignUpPress={props.onSignUpPress}
         />
         <Button
           style={themedStyle.signUpButton}
@@ -68,7 +70,7 @@ function SignUpComponent(props) {
 SignUpComponent.propTypes = {
   onPhotoPress: PropTypes.func.isRequired,
   onSignInPress: PropTypes.func.isRequired,
-  onSignUpButtonPress: PropTypes.func.isRequired,
+  onSignUpPress: PropTypes.func.isRequired,
   themedStyle: customPropTypes.style,
 };
 

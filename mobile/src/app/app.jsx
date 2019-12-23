@@ -16,7 +16,6 @@ import getStore from 'store/store';
 enableScreens();
 
 function onNavigationStateChange(prevState, currentState) {
-  console.log(prevState);
   // const prevStateName = getCurrentStateName(prevState);
   // const currentStateName = getCurrentStateName(currentState);
   // if (prevStateName !== currentStateName) {

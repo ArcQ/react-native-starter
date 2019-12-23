@@ -1,31 +1,36 @@
+import PropTypes from 'prop-types';
 import { Avatar, withStyles } from '@ui-kitten/components';
 import React from 'react';
 import { View } from 'react-native';
 
-class ProfilePhotoComponent extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.renderEditElement = () => {
-      const buttonElement = this.props.button();
-      return React.cloneElement(buttonElement, {
-        style: [buttonElement.props.style, this.props.themedStyle.editButton],
-      });
-    };
-  }
+import customPropTypes from 'utils/customPropTypes';
 
-  render() {
-    const { style, themedStyle, button, ...restProps } = this.props;
-    return (
-      <View style={style}>
-        <Avatar style={[style, themedStyle.avatar]} {...restProps} />
-        {button ? this.renderEditElement() : null}
-      </View>
-    );
-  }
+const renderEditElement = (props) => {
+  const buttonElement = props.button();
+  return React.cloneElement(buttonElement, {
+    style: [buttonElement.props.style, props.themedStyle.editButton],
+  });
+};
+
+function ProfilePhoto(props) {
+  const { style, themedStyle, ...restProps } = props;
+  return (
+    <View style={style}>
+      <Avatar style={[style, themedStyle.avatar]} {...restProps} />
+      {props.button && renderEditElement(props)}
+    </View>
+  );
 }
-export const ProfilePhoto = withStyles(ProfilePhotoComponent, theme => ({
+
+ProfilePhoto.propTypes = {
+  style: customPropTypes.style,
+  themedStyle: customPropTypes.style,
+  button: PropTypes.func,
+};
+
+export default withStyles(ProfilePhoto, () => ({
   avatar: {
-    alignSelf: 'center',
+    position: 'absolute',
   },
   editButton: {
     position: 'absolute',

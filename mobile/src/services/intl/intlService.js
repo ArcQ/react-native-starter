@@ -11,10 +11,15 @@ export default {
     i18n.locale = Localization.locale;
     this.isInit = true;
   },
-  translate(scope) {
+  translate(scope, isOverrideMissing) {
     if (!this.isInit) {
       this.init();
     }
-    return k => i18n.t(`${scope}.${k}`);
+    return k => {
+      if (isOverrideMissing && !i18n.translations.en?.[scope]?.[k]) {
+        return undefined;
+      }
+      return i18n.t(`${scope}.${k}`);
+    };
   },
 };

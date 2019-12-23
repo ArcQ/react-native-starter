@@ -8,25 +8,26 @@ import textStyle from 'textStyle';
 import BasicInputError from './BasicInputError';
 
 function BasicInput(props) {
-  const { style, themedStyle, ...restProps } = props;
+  const { name, error, style, themedStyle, inputRef, ...restProps } = props;
   return (
     <>
       <Input
         autoCapitalize="none"
-        status={() => ((props.errors) ? 'danger' : 'success')}
         textStyle={textStyle.paragraph}
         style={[themedStyle, style]}
         onChangeText={props.onChangeText}
+        ref={inputRef}
         {...restProps}
       />
-      <BasicInputError error={props.errors[props.name]} />
+      <BasicInputError error={error} />
     </>
   );
 }
 
 BasicInput.propTypes = {
-  errors: CustomPropTypes.errors,
+  error: CustomPropTypes.errors,
   onChangeText: PropTypes.func,
+  inputRef: PropTypes.func,
   style: CustomPropTypes.style,
   themedStyle: CustomPropTypes.style,
   name: PropTypes.string,

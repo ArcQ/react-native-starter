@@ -10,6 +10,7 @@ import SignUp from './SignUp';
 
 function SignUpContainer(props) {
   const methods = {
+    onPhotoPress() {},
     onSignUpPress(data) {
       props.register(data);
       props.navigation.navigate(HOME_ROUTE);
@@ -19,11 +20,7 @@ function SignUpContainer(props) {
     },
   };
 
-  return (
-    <SignUp
-      {...{ ...props, ...methods }}
-    />
-  );
+  return <SignUp {...{ ...props, ...methods }} />;
 }
 
 SignUpContainer.propTypes = {
@@ -31,14 +28,10 @@ SignUpContainer.propTypes = {
   register: PropTypes.func,
 };
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  register: authActions.signUp,
+  register: authActions.register,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SignUpContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);
