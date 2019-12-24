@@ -4,18 +4,16 @@ import { alertsActions } from 'store/alert/ducks';
 
 import { authConstants, authActions } from 'store/auth/ducks';
 
-import {
-  login, register, requestSession, logout, clearSession,
-} from './auth';
+import { signIn, signUp, requestSession, logout, clearSession } from './auth';
 
 const authDict = {
-  [authConstants.LOGIN]: login,
-  [authConstants.REGISTER]: register,
+  [authConstants.SIGN_IN]: signIn,
+  [authConstants.SIGN_UP]: signUp,
 };
 
-function* logoutWatcher(isLogin) {
+function* logoutWatcher(isSignIn) {
   let isLogout;
-  if (isLogin) {
+  if (isSignIn) {
     while (!isLogout) {
       isLogout = yield take([
         authConstants.LOGOUT,
@@ -44,13 +42,13 @@ function* authWatcher() {
   yield logoutWatcher(isSession);
   while (true) {
     // eslint-disable-line
-    const loginAction = yield take([
-      authConstants.LOGIN,
-      authConstants.REGISTER,
+    const signInAction = yield take([
+      authConstants.SIGN_IN,
+      authConstants.SIGN_UP,
     ]);
-    const isLogin = yield authDict[loginAction.type](loginAction);
+    const isSignIn = yield authDict[signInAction.type](signInAction);
     yield put(authActions.changeAuthSuccess());
-    yield logoutWatcher(isLogin);
+    yield logoutWatcher(isSignIn);
   }
 }
 

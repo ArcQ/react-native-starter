@@ -12,7 +12,7 @@ function SignUpContainer(props) {
   const methods = {
     onPhotoPress() {},
     onSignUpPress(data) {
-      props.register(data);
+      props.signUp(data);
       props.navigation.navigate(HOME_ROUTE);
     },
     onSignInPress() {
@@ -25,13 +25,13 @@ function SignUpContainer(props) {
 
 SignUpContainer.propTypes = {
   navigation: customPropTypes.navigation,
-  register: PropTypes.func,
+  signUp: PropTypes.func,
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  register: authActions.register,
+  signUp: authActions.signUp,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);

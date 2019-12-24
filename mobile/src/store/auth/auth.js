@@ -4,29 +4,33 @@ import { put } from 'redux-saga/effects';
 import navigationService from 'services/navigation/navigationService';
 import storageService from 'services/storage/storageService';
 import apiService from 'services/api/apiService';
-import {
-  authActions,
-} from 'store/auth/ducks';
+import { authActions } from 'store/auth/ducks';
 
-function* successfulLogin(data, loginType, isNewAccount) {
-  yield put(authActions.setProfile({
-    isNewAccount,
-    profile: data.profile,
-    avatar: data.profile.avatar.url,
-  }));
+function* successfulSignIn(data, signInType, isNewAccount) {
+  yield put(
+    authActions.setProfile({
+      isNewAccount,
+      profile: data.profile,
+      avatar: data.profile.avatar.url,
+    }),
+  );
   storageService.save('L_IN', 'true', new Date());
   navigationService.navigate('home');
 }
 
 // credentials could be {email,name} or {facebookAccessToken}
-export function* login(action) {
+export function* signIn(action) {
   const { credentials } = action.payload;
-  return yield apiService.post('login', function* onSuccess(response) {
-    yield successfulLogin(response.data);
-    return response;
-  }, {
-    ...credentials,
-  });
+  return yield apiService.post(
+    'signIn',
+    function* onSuccess(response) {
+      yield successfulSignIn(response.data);
+      return response;
+    },
+    {
+      ...credentials,
+    },
+  );
 }
 
 export function* requestSession() {
@@ -34,7 +38,7 @@ export function* requestSession() {
     return false;
   }
   return yield apiService.post('checkSession', function* onSuccess(response) {
-    yield successfulLogin(response.data);
+    yield successfulSignIn(response.data);
     return response;
   });
 }
@@ -45,16 +49,20 @@ export function* clearSession() {
   yield put(navigator.navigate(''));
 }
 
-export const logout = apiService.post('login', function* onSuccess(response) {
-  yield successfulLogin(response.data);
+export const logout = apiService.post('signIn', function* onSuccess(response) {
+  yield successfulSignIn(response.data);
   return response;
 });
 
-export function* register(action) {
+export function* signUp(action) {
   const { profile } = action.payload;
-  yield apiService.mock('signup', function* onSuccess (response) {
-    yield successfulLogin(response.data);
-  }, {
-    profile,
-  });
+  yield apiService.mock(
+    'signup',
+    function* onSuccess(response) {
+      yield successfulSignIn(response.data);
+    },
+    {
+      profile,
+    },
+  );
 }

@@ -15,7 +15,7 @@ function SignInContainer(props) {
 
   const methods = {
     onSignInPress(data) {
-      props.login(data);
+      props.signIn(data);
       props.navigation.navigate('Home');
     },
     onSignUpPress() {
@@ -34,11 +34,11 @@ SignInContainer.propTypes = {
 };
 
 SignInContainer.propTypes = {
-  login: PropTypes.func,
+  signIn: PropTypes.func,
 };
 
 const mapDispatchToProps = {
-  login: authActions.login,
+  signIn: authActions.signIn,
 };
 
 export default connect(undefined, mapDispatchToProps)(SignInContainer);

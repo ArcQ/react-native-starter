@@ -8,8 +8,8 @@ import { fromJS } from 'immutable';
 export const authNamespace = 'auth';
 
 const constArr = [
-  'LOGIN',
-  'REGISTER',
+  'SIGN_IN',
+  'SIGN_UP',
   'RESET_PASSWORD',
   'LOGOUT',
   'SET_PROFILE',
