@@ -1,7 +1,8 @@
 import { withStyles } from '@ui-kitten/components';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+  KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view';
 
 import customPropTypes from 'utils/customPropTypes';
 

@@ -1,45 +1,44 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { withStyles, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import {
+  withStyles,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
 
+import CustomPropTypes from 'utils/customPropTypes';
 import textStyle from 'textStyle';
+
 import SafeAreaViewByPlatform from './SafeAreaViewByPlatform';
 
-class TopNavigationBarComponent extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.onBackButtonPress = () => {
-      if (this.props.onBackPress) {
-        this.props.onBackPress();
-      }
-    };
-    this.renderBackButton = source => (
-      <TopNavigationAction icon={source} onPress={this.onBackButtonPress} />
-    );
-  }
-
-  render() {
-    const { themedStyle, title, backIcon } = this.props;
-    const leftControlElement = backIcon
-      ? this.renderBackButton(backIcon)
-      : null;
-    return (
-      <SafeAreaViewByPlatform style={themedStyle.safeArea}>
-        <TopNavigation
-          alignment="center"
-          title={title}
-          titleStyle={textStyle.subtitle}
-          subtitleStyle={textStyle.caption1}
-          leftControl={leftControlElement}
-        />
-      </SafeAreaViewByPlatform>
-    );
-  }
+function TopNavigationBar(props) {
+  return (
+    <SafeAreaViewByPlatform style={props.themedStyle.safeArea}>
+      <TopNavigation
+        alignment="center"
+        title={props.title}
+        titleStyle={textStyle.subtitle}
+        subtitleStyle={textStyle.caption1}
+        leftControl={() => (
+          <TopNavigationAction
+            icon={props.backIcon}
+            onPress={props.onBackPress}
+          />
+        )}
+      />
+    </SafeAreaViewByPlatform>
+  );
 }
-export const TopNavigationBar = withStyles(
-  TopNavigationBarComponent,
-  theme => ({
-    safeArea: {
-      backgroundColor: theme['background-basic-color-1'],
-    },
-  }),
-);
+
+TopNavigationBar.propTypes = {
+  backIcon: PropTypes.func,
+  onBackPress: PropTypes.func,
+  title: PropTypes.string,
+  themedStyle: CustomPropTypes.style,
+};
+
+export default withStyles(TopNavigationBar, theme => ({
+  safeArea: {
+    backgroundColor: theme['background-basic-color-1'],
+  },
+}));

@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { Animated, Easing, StyleSheet } from 'react-native';
 
 import { images } from 'assets';
@@ -18,59 +19,48 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class LoadingAnimationComponent extends React.Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      animationValue: new Animated.Value(0),
-      animationCompleted: false,
-    };
-  }
+function LoadingAnimation(props) {
+  const [animationValue] = useState(new Animated.Value(0));
+  const [animationCompleted, setAnimationCompleted] = useState(false);
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.isLoaded && nextProps.isLoaded !== this.props.isLoaded) {
-      this.triggerAnimation();
-    }
-  }
+  const opacity = animationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0],
+  });
+  const transform = [
+    {
+      scale: animationValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 1.5],
+      }),
+    },
+  ];
 
-  triggerAnimation() {
-    Animated.timing(this.state.animationValue, {
-      toValue: 1,
-      duration: 700,
-      useNativeDriver: true,
-      easing: Easing.in(Easing.exp),
-    }).start(() => this.onAnimationCompleted());
-  }
+  useEffect(
+    () =>
+      Animated.timing(animationValue, {
+        toValue: 1,
+        duration: 700,
+        useNativeDriver: true,
+        easing: Easing.in(Easing.exp),
+      }).start(() => setAnimationCompleted(true)),
+    [props.isLoaded],
+  );
 
-  onAnimationCompleted() {
-    this.setState({ animationCompleted: true });
-  }
-
-  renderAnimatedComponent() {
-    const opacity = this.state.animationValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 0],
-    });
-    const transform = [
-      {
-        scale: this.state.animationValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: [1, 1.5],
-        }),
-      },
-    ];
-    return (
-      <Animated.View style={[styles.container, { opacity }]}>
-        <Animated.Image
-          source={images.splash.imageSource}
-          style={[styles.image, { transform }]}
-       />
-      </Animated.View>
-    );
-  }
-
-  render() {
-    const { animationCompleted } = this.state;
-    return animationCompleted ? null : this.renderAnimatedComponent();
-  }
+  return (
+    <>
+      {animationCompleted && (
+        <Animated.View style={[styles.container, { opacity }]}>
+          <Animated.Image
+            source={images.splash.imageSource}
+            style={[styles.image, { transform }]}
+          />
+        </Animated.View>
+      )}
+    </>
+  );
 }
+
+LoadingAnimation.propTypes = {
+  isLoaded: PropTypes.bool,
+};

@@ -48,7 +48,6 @@ module.exports = {
     'func-names':0,
     // temporary since webpack-resolver not working with aliases in webpack2
     'import/no-extraneous-dependencies':0,
-    // exception for class methods for phaser api
     'class-methods-use-this':0,
     'react/require-default-props':0,
     'array-callback-return':0,
