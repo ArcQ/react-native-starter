@@ -1,5 +1,6 @@
 /**
- * wrapServiceWithInit - gracefully fails if initiation fails for non essential services
+ * wrapServiceWithInit - gracefully fails if
+ * initiation fails for non essential services
  *
  * @param service
  * @param init
@@ -10,11 +11,13 @@ export default function(service, init) {
     init(service);
     return service;
   } catch (e) {
-    console.info(e); //eslint-disable-line
+    console.info(e.message); //eslint-disable-line
   }
-  return Object.keys(service)
-    .reduce((newObj, key) => ({
+  return Object.keys(service).reduce(
+    (newObj, key) => ({
       ...newObj,
       [key]: () => {},
-    }), {});
+    }),
+    {},
+  );
 }

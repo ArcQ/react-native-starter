@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function LoadingAnimation(props) {
+export default function LoadingAnimation(props) {
   const [animationValue] = useState(new Animated.Value(0));
   const [animationCompleted, setAnimationCompleted] = useState(false);
 

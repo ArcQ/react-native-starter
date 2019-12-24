@@ -7,9 +7,7 @@ import {
 } from 'navigation/routes';
 import SignInContainer from 'screens/SignIn/SignInContainer';
 import SignUpContainer from 'screens/SignUp/SignUpContainer';
-import {
-  ForgotPasswordContainer,
-} from 'screens/ForgotPassword/ForgotPasswordContainer';
+import ForgotPasswordContainer from 'screens/ForgotPassword/ForgotPasswordContainer';
 
 const AuthStack = createStackNavigator(
   {

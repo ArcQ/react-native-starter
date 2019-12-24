@@ -9,6 +9,8 @@ const signUp = {
 
 const signIn = {
   helloLabel: 'Hello',
+  emailPlaceholder: 'Email',
+  passwordPlaceholder: 'Password',
   signInButton: 'SIGN IN',
   signInLabel: 'Sign in to your account',
   signUpButton: "Don't have an account? Sign Up",
